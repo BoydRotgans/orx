@@ -1,6 +1,24 @@
+sourceSets {
+    demo {
+        java {
+            srcDirs = ["src/demo/kotlin"]
+            compileClasspath += main.getCompileClasspath()
+            runtimeClasspath += main.getRuntimeClasspath()
+        }
+    }
+}
 dependencies {
-    implementation "org.openrndr:openrndr-core:$openrndrVersion"
+
+    api project(":orx-parameters")
+
+    demoImplementation("org.openrndr:openrndr-core:$openrndrVersion")
+    demoImplementation("org.openrndr:openrndr-extensions:$openrndrVersion")
+    demoRuntimeOnly("org.openrndr:openrndr-gl3:$openrndrVersion")
     implementation "org.openrndr:openrndr-gl3:$openrndrVersion"
     implementation "org.lwjgl:lwjgl-opengl:3.2.3"
-    implementation "org.openrndr:openrndr-gl3-natives-macos:$openrndrVersion"
+    demoRuntimeOnly("org.openrndr:openrndr-gl3-natives-windows:$openrndrVersion")
+    demoImplementation(sourceSets.getByName("main").output)
+
+
+
 }
